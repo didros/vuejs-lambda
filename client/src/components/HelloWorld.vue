@@ -1,6 +1,20 @@
 <template>
 <div class="container">
   <h1>Latest Micro-Posts</h1>
+  <div class="users">
+    <button v-if="!profile" v-on:click="signIn">
+      Sign In
+    </button>
+    <button v-if="profile" v-on:click="signOut">
+      Sign Out
+    </button>
+    <p v-if="profile">
+      Hello there, {{ profile.name }}. Why don't you
+      <router-link :to="{ name: 'ShareThoughts' }">
+        share your thoughts?
+      </router-link>
+    </p>
+  </div>
   <p class="error" v-if="error"></p>
   <div class="micro-posts-container">
     <div class="micro-post"
@@ -20,22 +34,28 @@
 </template>
 
 <script>
+import auth0Client from '../AuthService'
 import MicroPostService from '../MicroPostsService'
-
 export default {
   name: 'HelloWorld',
   data () {
     return {
       microPosts: [],
-      error: ''
+      error: '',
+      profile: null
     }
   },
   async created () {
     try {
       this.microPosts = await MicroPostService.getMicroPosts()
+      this.profile = auth0Client.getProfile()
     } catch (error) {
       this.error = error.message
     }
+  },
+  methods: {
+    signIn: auth0Client.signIn,
+    signOut: auth0Client.signOut
   }
 }
 </script>
