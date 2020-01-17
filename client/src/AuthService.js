@@ -5,7 +5,7 @@ class Auth {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
       domain: 'did.eu.auth0.com',
-      audience: 'https://did.eu.auth0.com/userinfo',
+      audience: 'https://micro-blog-app',
       clientID: 'xUvE3n8jZKldcz5yOFS7Lh77Y64yKcIa',
       redirectUri: 'http://localhost:8080/callback',
       responseType: 'token id_token',
