@@ -6,6 +6,8 @@ const jwksRsa = require('jwks-rsa');
 
 const router = express.Router();
 
+const { AUTH0_CLIENT_ID, AUTH0_DOMAIN, AUTH0_AUD, MONGODB_URL } = process.env;
+
 // retrieve latest micro-posts
 router.get('/', async (req, res) => {
   const collection = await loadMicroPostsCollection();
@@ -14,24 +16,21 @@ router.get('/', async (req, res) => {
   );
 });
 
-
-// this is a middleware to validate access_tokens
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
     cache: true,
     rateLimit: true,
     jwksRequestsPerMinute: 5,
-    jwksUri: `https://did.eu.auth0.com/.well-known/jwks.json`
+    jwksUri: `https://${AUTH0_DOMAIN}/.well-known/jwks.json`
   }),
 
   // Validate the audience and the issuer.
-  audience: 'https://micro-blog-app',
-  issuer: `https://did.eu.auth0.com/`,
+  audience: `${AUTH0_AUD}`,
+  issuer: `https://${AUTH0_DOMAIN}/`,
   algorithms: ['RS256']
 });
 
-
-// insert a new micro-post with user details
+// insert a new micro-post
 router.post('/', checkJwt, async (req, res) => {
   const collection = await loadMicroPostsCollection();
 
@@ -40,8 +39,8 @@ router.post('/', checkJwt, async (req, res) => {
     .replace('Bearer ', '');
 
   const authClient = new auth0.AuthenticationClient({
-    domain: 'did.eu.auth0.com',
-    clientId: 'xUvE3n8jZKldcz5yOFS7Lh77Y64yKcIa',
+    domain: AUTH0_DOMAIN,
+    clientId: AUTH0_CLIENT_ID,
   });
 
   authClient.getProfile(token, async (err, userInfo) => {
@@ -64,9 +63,8 @@ router.post('/', checkJwt, async (req, res) => {
 });
 
 async function loadMicroPostsCollection() {
-  const client = await MongoClient.connect('mongodb://localhost:27017/');
+  const client = await MongoClient.connect(MONGODB_URL);
   return client.db('micro-blog').collection('micro-posts');
 }
 
 module.exports = router;
-

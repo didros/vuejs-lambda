@@ -1,16 +1,16 @@
 <template>
 <div class="container">
   <h1 v-if="!profile">Lyst til å være lærer hos oss?</h1>
-  <h1 v-if="profile">Lærer portal</h1>
+  <h1 v-if="profile">Selvbetjening</h1>
   <div class="users">
     <button v-if="!profile" v-on:click="signIn">
-      Bli med 
+      Bli med
     </button>
     <button v-if="profile" v-on:click="signOut">
       Logg ut
     </button>
     <p v-if="profile">
-      Hei {{ profile.name }}. Her kan du 
+      Hei {{ profile.name }}. Her kan du
       <router-link :to="{ name: 'ShareThoughts' }">
         skrive kort om deg.
       </router-link>
