@@ -1,17 +1,18 @@
 <template>
 <div class="container">
-  <h1>Latest Micro-Posts</h1>
+  <h1 v-if="!profile">Lyst til å være lærer hos oss?</h1>
+  <h1 v-if="profile">Lærer portal</h1>
   <div class="users">
     <button v-if="!profile" v-on:click="signIn">
-      Sign In
+      Bli med 
     </button>
     <button v-if="profile" v-on:click="signOut">
-      Sign Out
+      Logg ut
     </button>
     <p v-if="profile">
-      Hello there, {{ profile.name }}. Why don't you
+      Hei {{ profile.name }}. Her kan du 
       <router-link :to="{ name: 'ShareThoughts' }">
-        share your thoughts?
+        skrive kort om deg.
       </router-link>
     </p>
   </div>
