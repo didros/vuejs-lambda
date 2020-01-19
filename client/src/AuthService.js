@@ -4,10 +4,10 @@ class Auth {
   constructor () {
     this.auth0 = new auth0.WebAuth({
       // the following three lines MUST be updated
-      domain: 'did.eu.auth0.com',
+      domain: process.env.AUTH0_DOMAIN,
+      clientID: process.env.AUTH0_CLIENT_ID,
       audience: 'https://micro-blog-app',
-      clientID: 'xUvE3n8jZKldcz5yOFS7Lh77Y64yKcIa',
-      redirectUri: 'http://localhost:8080/callback',
+      redirectUri: process.env.AUTH0_CALLBACK_URL,
       responseType: 'token id_token',
       scope: 'openid profile'
     })
