@@ -14,7 +14,8 @@
     "auth0-js": "9.12.2",
     "axios": "0.19.1",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "js-yaml": ">=3.13.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
