@@ -6,6 +6,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const routes = require('./routes');
 
+console.log('MONGODB_URL=' + process.env.MONGODB_URL)
+
 // define the Express app
 const app = express();
 

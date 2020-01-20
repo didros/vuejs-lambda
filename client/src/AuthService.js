@@ -3,10 +3,9 @@ import auth0 from 'auth0-js'
 class Auth {
   constructor () {
     this.auth0 = new auth0.WebAuth({
-      // the following three lines MUST be updated
       domain: process.env.AUTH0_DOMAIN,
       clientID: process.env.AUTH0_CLIENT_ID,
-      audience: 'https://micro-blog-app',
+      audience: process.env.AUTH0_AUD,
       redirectUri: process.env.AUTH0_CALLBACK_URL,
       responseType: 'token id_token',
       scope: 'openid profile'
@@ -31,7 +30,9 @@ class Auth {
   handleAuthentication () {
     return new Promise((resolve, reject) => {
       this.auth0.parseHash((err, authResult) => {
+        console.log('In handleAuthentication err =>' + err + '<')
         if (err) return reject(err)
+        console.log('authResult =>' + JSON.stringify(authResult) + '<')
         if (!authResult || !authResult.accessToken || !authResult.idToken) {
           return reject(err)
         }
@@ -55,10 +56,7 @@ class Auth {
 
   signOut () {
     // clear id token, profile, and expiration
-    this.auth0.logout({
-      clientID: 'xUvE3n8jZKldcz5yOFS7Lh77Y64yKcIa',
-      returnTo: 'http://localhost:8080/'
-    })
+    this.auth0.logout()
   }
 }
 

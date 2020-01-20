@@ -10,5 +10,6 @@ module.exports = merge(prodEnv, {
   AUTH0_CLIENT_ID: '"xUvE3n8jZKldcz5yOFS7Lh77Y64yKcIa"',
   AUTH0_DOMAIN: '"did.eu.auth0.com"',
   AUTH0_LOGOUT_URL: `"${APP_URL}"`,
-  AUTH0_CALLBACK_URL: `"${APP_URL}callback"`
+  AUTH0_CALLBACK_URL: `"${APP_URL}callback"`,
+  AUTH0_AUD: '"https://micro-blog-app"'
 })

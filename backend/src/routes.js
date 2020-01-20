@@ -63,6 +63,7 @@ router.post('/', checkJwt, async (req, res) => {
 });
 
 async function loadMicroPostsCollection() {
+  console.log('MONGODB_URL=' + MONGODB_URL);
   const client = await MongoClient.connect(MONGODB_URL);
   return client.db('micro-blog').collection('micro-posts');
 }

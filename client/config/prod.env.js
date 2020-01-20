@@ -1,5 +1,5 @@
 'use strict'
-const APP_URL = ''
+const APP_URL = 'http://min.245skole.no/'
 
 module.exports = {
   NODE_ENV: '"production"',
@@ -7,5 +7,6 @@ module.exports = {
   AUTH0_CLIENT_ID: '"YkYKymkaR88WLpcDYBRr56DnJRtaExf8"',
   AUTH0_DOMAIN: '"245skole.eu.auth0.com"',
   AUTH0_LOGOUT_URL: `"${APP_URL}"`,
-  AUTH0_CALLBACK_URL: `"${APP_URL}callback"`
+  AUTH0_CALLBACK_URL: `"${APP_URL}callback"`,
+  AUTH0_AUD: '"https://selfservice"'
 }
