@@ -17,6 +17,15 @@
     </p>
   </div>
   <p class="error" v-if="error"></p>
+
+  <p/>
+
+  <clipper-upload v-model="imgURL">upload image</clipper-upload>
+  <clipper-basic class="my-clipper" src="./assets/parallax3.jpg">
+  </clipper-basic>
+
+  <p/>
+
   <div class="micro-posts-container">
     <div class="micro-post"
          v-for="(microPost, index) in microPosts"
@@ -63,6 +72,18 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+.my-clipper {
+  width: 100%;
+  max-width: 700px;
+}
+
+.placeholder {
+  text-align: center;
+  padding: 20px;
+  background-color: lightgray;
+}
+
 div.container {
   max-width: 800px;
   margin: 0 auto;
