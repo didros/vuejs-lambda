@@ -5,12 +5,7 @@ import App from './App'
 import router from './router'
 import VuejsClipper from 'vuejs-clipper'
 
-Vue.use(VuejsClipper, {
-  components: {
-    clipperBasic: true,
-    clipperPreview: true
-  }
-})
+Vue.use(VuejsClipper)
 
 Vue.config.productionTip = false
 

@@ -18,14 +18,24 @@
   </div>
   <p class="error" v-if="error"></p>
 
-  <p/>
+  <p v-if="profile">
+    <clipper-upload class="my-button" v-model="imgURL2">upload image</clipper-upload>
+    <button class="my-button" v-on:click="getResult">clip image</button>
 
-  <clipper-upload v-model="imgURL">upload image</clipper-upload>
-  <clipper-basic class="my-clipper" src="./assets/parallax3.jpg">
-  </clipper-basic>
+    <clipper-fixed class="my-clipper" ref="clipper" :src="imgURL2" preview="my-preview" :ratio="1">
+      <div class="placeholder" slot="placeholder">Ingen bilde</div>
+    </clipper-fixed>
 
-  <p/>
+      <br/>DEBUG - preview
+      <clipper-preview name="my-preview">
+        <div class="placeholder" slot="placeholder">Forhåndsvisning</div>
+      </clipper-preview>
 
+      <br/>DEBUG - result
+      <img class="result" :src="resultURL" alt="">
+  </p>
+
+  <br/>
   <div class="micro-posts-container">
     <div class="micro-post"
          v-for="(microPost, index) in microPosts"
@@ -46,13 +56,17 @@
 <script>
 import auth0Client from '../AuthService'
 import MicroPostService from '../MicroPostsService'
+import { clipperUpload, clipperFixed } from 'vuejs-clipper'
+
 export default {
   name: 'HelloWorld',
   data () {
     return {
       microPosts: [],
       error: '',
-      profile: null
+      profile: null,
+      imgURL2: '',
+      resultURL: ''
     }
   },
   async created () {
@@ -65,7 +79,15 @@ export default {
   },
   methods: {
     signIn: auth0Client.signIn,
-    signOut: auth0Client.signOut
+    signOut: auth0Client.signOut,
+    getResult: function () {
+      const canvas = this.$refs.clipper.clip() // call component's clip method
+      this.resultURL = canvas.toDataURL('image/jpeg', 1) // canvas->image
+    }
+  },
+  components: {
+    clipperUpload,
+    clipperFixed
   }
 }
 </script>
@@ -75,14 +97,32 @@ export default {
 
 .my-clipper {
   width: 100%;
-  max-width: 700px;
+  max-width: 800px;
 }
 
 .placeholder {
-  text-align: center;
-  padding: 20px;
-  background-color: lightgray;
+    width: 100%;
+    /* max-width: 700px; */
+    padding: 20px;
+    background-color: lightgray;
 }
+
+.my-button {
+  background-color: #f4511e;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.my-button:hover {opacity: 1}
 
 div.container {
   max-width: 800px;
