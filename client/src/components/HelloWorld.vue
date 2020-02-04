@@ -18,22 +18,22 @@
   </div>
   <p class="error" v-if="error"></p>
 
-  <p v-if="profile">
+  <!-- <div v-if="profile"> -->
     <clipper-upload class="my-button" v-model="imgURL2">upload image</clipper-upload>
     <button class="my-button" v-on:click="getResult">clip image</button>
-
-    <clipper-fixed class="my-clipper" ref="clipper" :src="imgURL2" preview="my-preview" :ratio="1">
-      <div class="placeholder" slot="placeholder">Ingen bilde</div>
-    </clipper-fixed>
-
-      <br/>DEBUG - preview
-      <clipper-preview name="my-preview">
-        <div class="placeholder" slot="placeholder">Forhåndsvisning</div>
+    <div>
+      <clipper-fixed class="my-clipper" ref="clipper" :src="imgURL2" preview="my-preview" :ratio="1">
+        <div class="placeholder_clipper" slot="placeholder">Ingen bilde</div>
+      </clipper-fixed>
+      <clipper-preview class="preview" name="my-preview">
+        <div class="placeholder_preview" slot="placeholder">Forhåndsvisning</div>
       </clipper-preview>
-
-      <br/>DEBUG - result
+    </div>
+    <p/>
+    <div>
       <img class="result" :src="resultURL" alt="">
-  </p>
+    </div>
+  <!-- </div> -->
 
   <br/>
   <div class="micro-posts-container">
@@ -57,6 +57,8 @@
 import auth0Client from '../AuthService'
 import MicroPostService from '../MicroPostsService'
 import { clipperUpload, clipperFixed } from 'vuejs-clipper'
+
+// this.$refs.clipper.setTL$.next({'top': 50, 'left': 50})
 
 export default {
   name: 'HelloWorld',
@@ -96,13 +98,30 @@ export default {
 <style scoped>
 
 .my-clipper {
-  width: 100%;
-  max-width: 800px;
+  width: 45%;
+  max-width: 400px;
 }
 
-.placeholder {
-    width: 100%;
-    /* max-width: 700px; */
+.preview {
+  width: 45%;
+  max-width: 200px;
+  padding: 1px;
+}
+
+.result {
+  width: 100%;
+  max-width: 200px;
+}
+
+.placeholder_clipper {
+    width: 45%;
+    max-width: 400px;
+    padding: 20px;
+    background-color: lightgray;
+}
+.placeholder_preview {
+    width: 45%;
+    max-width: 200px;
     padding: 20px;
     background-color: lightgray;
 }

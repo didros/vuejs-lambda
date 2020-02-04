@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
 import Callback from '@/components/Callback'
 import ShareThoughts from '@/components/ShareThoughts'
+import Profile from '@/components/Profile'
 import auth0Client from '../AuthService'
 
 Vue.use(Router)
@@ -14,6 +15,11 @@ export default new Router({
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: '/profile',
+      name: 'Profile',
+      component: Profile
     },
     {
       path: '/callback',
