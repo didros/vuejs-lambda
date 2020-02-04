@@ -119,6 +119,7 @@ export default {
     padding: 20px;
     background-color: lightgray;
 }
+
 .placeholder_preview {
     width: 45%;
     max-width: 200px;

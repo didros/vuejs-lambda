@@ -14,7 +14,7 @@
     </div>
     <div class="list-content content">
         <div class="area">
-            <h3 class="tc">Edit Profile</h3>
+            <h3 class="tc">Last opp et bilde</h3>
             <div class="flex center">
                 <div class="pic-con">
                     <img :src="clipResult">
